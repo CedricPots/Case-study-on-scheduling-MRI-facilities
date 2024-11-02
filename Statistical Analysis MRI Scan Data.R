@@ -17,8 +17,6 @@ library(stats)
 library(ggplot2)
 library(MASS)
 
-scan.records.data <- read.csv("C:\\Users\\cedri\\OneDrive\\Documenten\\Maastricht University\\M.Sc. Econometrics & Operations Research\\Computational Research Skills\\Computational Assignment\\ScanRecords.csv")
-
 #Two types of patients (Type 1 and Type 2)
 type1.data <- scan.records.data[scan.records.data$PatientType == "Type 1", ]
 type2.data <- scan.records.data[scan.records.data$PatientType == "Type 2", ]
