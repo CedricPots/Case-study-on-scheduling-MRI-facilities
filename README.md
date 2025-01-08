@@ -5,7 +5,7 @@ Two patient types with distinct scan durations and arrival patterns currently us
 
 ## Part 1 - Statistical Analysis of MRI scan data 
 
-To aid this decision, the study will analyze historical data and estimate key metrics including scan durations and arrival rates using bootstrap methods to provide reliable estimates and assess the potential impact of a merged scheduling policy. , Monte Carlo simulations are performed to validate the model specifications. 
+To aid this decision, the study will analyze historical data and estimate key metrics including scan durations and arrival rates using bootstrap methods to provide reliable estimates and assess the potential impact of a merged scheduling policy. Monte Carlo simulations are performed to validate the model specifications. 
 
 ## Part 2 - Optimizing Scheduling Policies 
 
