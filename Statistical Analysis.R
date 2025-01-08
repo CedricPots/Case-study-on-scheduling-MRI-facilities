@@ -452,6 +452,29 @@ print(Conf.Ints.t1*60)
 # 1. Parametric approach (from known gamma and normal distributions)
 # 2. Non-parametric approach (estimation of empirical distribution function)
 
+#------------------------------------------------------------------------------
+#Quantiles 
+#------------------------------------------------------------------------------
+B2 <- 10000
+# Vector of quantiles of interest for Type 2
+quantiles.interest.t2 <- c(0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975)
+observed.quantiles.t2 <- quantile(type2.data$Duration, quantiles.interest.t2)
+
+# Matrix of differences between bootstrap quantiles and observed quantiles
+bootstrap.differences.t2 <- replicate(B2, 
+                                      quantile(type2.data$Duration[sample(n2, replace = TRUE)], probs = quantiles.interest.t2) - observed.quantiles.t2)
+
+# Confidence intervals for quantiles
+ci.upper.quantiles.t2 <- apply(bootstrap.differences.t2, 1, quantile, 0.975)
+ci.lower.quantiles.t2 <- apply(bootstrap.differences.t2, 1, quantile, 0.025)
+
+# Confidence intervals for each quantile
+ci.quantile.intervals.t2 <- cbind(observed.quantiles.t2 - ci.upper.quantiles.t2, 
+                                  observed.quantiles.t2 - ci.lower.quantiles.t2)
+
+# Print quantile confidence intervals (in minutes)
+print(ci.quantile.intervals.t2 * 60)
+
 #===============================================================================
 #PARAMETRIC APPROACH: 
 #===============================================================================
