@@ -5,8 +5,8 @@ Two patient types with distinct scan durations and arrival patterns currently us
 
 ## Part 1 - Statistical Analysis of MRI scan data 
 
-To aid this decision, the study will analyze historical data and estimate key metrics including scan durations and arrival rates using bootstrap methods to provide reliable estimates and assess the potential impact of a merged scheduling policy. Monte Carlo simulations are performed to validate the model specifications. 
+To aid this decision, the study will first estimate the mean and variance metrics related to scan durations and inter-arrival rates of both patient types. Subsequently, parametric and non-parametric bootstrap methods are applied to measure the uncertainty of the estimates. Finally, Monte Carlo simulations are performed to validate the model specifications. 
 
 ## Part 2 - Optimizing Scheduling Policies 
 
-A discrete event simulation is uesd to model scheduling under current and proposed systems. The study evaluates performance indicators including overtime, patient waiting time, system utilization and total number of patients served, considers uncertainty from statistical estimates, and offers advice on optimal time slot lengths to minimize overtime while meeting patient needs.
+A discrete event simulation is used to model scheduling under the current and proposed new system. The study evaluates the performance indicators  overtime, patient waiting time, system utilization and total number of patients served and considers the uncertainty around the estimates from the statistical analysis to offer an advice on optimal time slot lengths that aim to minimize overtime while meeting patient needs.
