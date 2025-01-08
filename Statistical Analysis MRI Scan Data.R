@@ -32,12 +32,13 @@ sd(type1.data$Duration)*60 #=>6 min
 #Informal test: histogram against normal distribution 
 #-------------------------------------------------------------------------------
 
-hist(type1.data$Duration, , col="blue", prob=TRUE, 
+hist(type1.data$Duration, , col="#104E8B", prob=TRUE, 
      main="MRI Scan Duration of Type 1 Patients", xlab="MRI Scan Duration", 
      breaks=20)
 x.axis.1 <- seq(min(type1.data$Duration), max(type1.data$Duration), 0.01)
 lines(x.axis.1, dnorm(x.axis.1, mean=mean(type1.data$Duration), sd=sd(type1.data$Duration)), col="#CC0000", 
       lwd=2.4)
+legend("topright", legend="Fitted Normal Distribution", col="", lwd=2.4, cex=0.8)
 
 #-------------------------------------------------------------------------------
 #Formal test: test for normality (Jarque-Bera test)
@@ -70,13 +71,15 @@ for (i in 1:(n1 - 1)) {
 
 # Check the histogram with a fitted exponential distribution
 hist.arrival.t1 <- ggplot(data.frame(X.inter.arrival), aes(x = X.inter.arrival)) +
-  geom_histogram(bins = 12, fill = "lightblue", color = "black", alpha = 0.7, aes(y = ..density..)) +
+  geom_histogram(bins = 12, fill = "#104E8B", color = "black", alpha = 0.7, aes(y = ..density..)) +
   stat_function(fun = dexp, args = list(rate = 1 / mean(X.inter.arrival)), 
-                color = "darkgreen", linewidth = 1) +  # Fitted line for exponential distribution
-  labs(title = "Histogram of Type 1 Patient Inter-Arrival Times with Fitted Exponential Distribution",
+                aes(color = "Fitted Exponential Distribution"), size = 1.5) +  # Add legend label
+  labs(title = "Inter-Arrival Time - Type 1 Patients",
        x = "Inter-Arrival Time (hours)",
        y = "Density") +
-  theme_minimal()
+  scale_color_manual(name = "", values = c("Fitted Exponential Distribution" = "#FF3030")) +  # Define legend color
+  theme_bw() +  # White background
+  theme(legend.position = "top")  # Position the legend at the top
 print(hist.arrival.t1)
 
 #-------------------------------------------------------------------------------
@@ -99,11 +102,11 @@ sd(type2.data$Duration)*60 #=>11 min
 #Informal test: histogram against normal distribution 
 #-------------------------------------------------------------------------------
 
-hist(type2.data$Duration, col="purple", prob=TRUE, 
+hist(type2.data$Duration, col="#104E8B", prob=TRUE, 
      main="MRI Scan Duration of Type 2 Patients", xlab="MRI Scan Duration", 
      breaks=20)
 x.axis.2 <- seq(min(type2.data$Duration), max(type2.data$Duration), 0.01)
-lines(x.axis.2, dnorm(x.axis.2, mean=mean(type2.data$Duration), sd=sd(type2.data$Duration)), col="#CC0000", 
+lines(x.axis.2, dnorm(x.axis.2, mean=mean(type2.data$Duration), sd=sd(type2.data$Duration)), col="#FF3030", 
       lwd=2.4)
 #Data seems to look more like a gamma distribution. 
 
@@ -123,7 +126,9 @@ jarque.bera.test(type2.data$Duration) #p-value: 0.027
 beta.gamma <- sd(type2.data$Duration)^2/mean(type2.data$Duration)
 alpha.gamma <- mean(type2.data$Duration)/beta.gamma
 lines(x.axis.2, dgamma(x.axis.2, shape=alpha.gamma, rate=1/beta.gamma), type="l",
-      col="#ADD8E6", lwd=2)
+      col="#EEC900", lwd=2)
+legend("topright", legend=c("Fitted Normal Distribution", "Fitted Gamma Distribution"), 
+       col=c("#FF3030", "#EEC900"), lwd=2, cex=0.8)
 
 #-------------------------------------------------------------------------------
 #Informal test 2: empirical distribution function (EDF) gamma vs. normal  
@@ -160,15 +165,18 @@ for (i in 1:(n2 - 1)) {
 
 # Create the histogram with the fitted normal distribution
 hist.arrival.t2.normal <- ggplot(data.frame(X.inter.arrival.t2), aes(x = X.inter.arrival.t2)) +
-  geom_histogram(bins = 12, fill = "lightblue", color = "black", alpha = 0.7, aes(y = ..density..)) +
+  geom_histogram(bins = 12, fill = "#104E8B", color = "black", alpha = 0.7, aes(y = ..density..)) +
   stat_function(fun = dnorm, 
                 args = list(mean = mean(X.inter.arrival.t2, na.rm = TRUE), 
                             sd = sd(X.inter.arrival.t2, na.rm = TRUE)), 
-                color = "darkred", linewidth = 1) +  # Fitted line for normal distribution
-  labs(title = "Histogram of Type 2 Patient Inter-Arrival Times with Fitted Normal Distribution",
+                aes(color = "Fitted Normal Distribution"), linewidth = 1) +  # Add legend label for normal distribution
+  labs(title = "Inter-Arrival Time - Type 2 Patients",
        x = "Inter-Arrival Time (hours)",
        y = "Density") +
-  theme_minimal()
+  scale_color_manual(name = "", values = c("Fitted Normal Distribution" = "#FF3030")) +  # Define legend color
+  theme_minimal() +  # Minimal theme
+  theme(legend.position = "top")  # Position the legend at the top
+
 print(hist.arrival.t2.normal)
 
 #-------------------------------------------------------------------------------
